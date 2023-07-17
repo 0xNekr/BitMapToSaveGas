@@ -9,8 +9,10 @@ contract BitMapHasMinted {
 
     BitMaps.BitMap private hasMinted;
 
-    function setHasMinted(uint256 tokenId) public {
-        hasMinted.set(tokenId);
+    function setHasMinted(uint256[] calldata tokenIds) public {
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            hasMinted.set(tokenIds[i]);
+        }
     }
 
     function getHasMinted(uint256 tokenId) public view returns(bool) {

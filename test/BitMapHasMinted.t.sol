@@ -6,16 +6,19 @@ import "../src/BitMapHasMinted.sol";
 
 contract BitMapHasMintedTest is Test {
 
-    BitMapHasMinted public bitMapToSaveGas;
+    BitMapHasMinted public bitMapHasMinted;
 
     function setUp() public {
-        bitMapToSaveGas = new BitMapHasMinted();
+        bitMapHasMinted = new BitMapHasMinted();
     }
 
     function testSetHasMinted() public {
+
+        uint256[] memory tokenIds = new uint256[](100);
         for (uint256 i = 0; i < 100; i++) {
-            bitMapToSaveGas.setHasMinted(i);
-            assertEq(bitMapToSaveGas.getHasMinted(i), true);
+            tokenIds[i] = uint256(keccak256(abi.encodePacked(block.timestamp, block.difficulty, i))) % 10000;
         }
+
+        bitMapHasMinted.setHasMinted(tokenIds);
     }
 }

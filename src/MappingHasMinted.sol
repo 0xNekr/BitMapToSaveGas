@@ -5,8 +5,10 @@ contract MappingHasMinted {
 
     mapping (uint256 => bool) public hasMinted;
 
-    function setHasMinted(uint256 tokenId) public {
-        hasMinted[tokenId] = true;
+    function setHasMinted(uint256[] calldata tokenIds) public {
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            hasMinted[tokenIds[i]] = true;
+        }
     }
 
 }
